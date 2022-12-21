@@ -9,11 +9,10 @@ labtools-k8s set-context cluster
    * Create namespace "kafka", "kafka-project"
 ```shell
 if ! kubectl get ns kafka; then kubectl create namespace kafka; fi
-if ! kubectl get ns kafka-project-1; then kubectl create namespace kafka-project-1; fi
-if ! kubectl get ns kafka-project-2; then kubectl create namespace kafka-project-2; fi
-if ! kubectl get ns kafka-project-3; then kubectl create namespace kafka-project-3; fi
-if ! kubectl get ns kafka-project-4; then kubectl create namespace kafka-project-4; fi
-if ! kubectl get ns kafka-project-5; then kubectl create namespace kafka-project-5; fi
+for ns in  kafka-project-1 kafka-project-2 kafka-project-3 kafka-project-4 kafka-project-5
+do 
+  if ! kubectl get ns $ns; then kubectl create namespace $ns; fi
+done
 kubectl get namespace
 ```
    * For each namespace listed, install the RoleBindings
