@@ -64,7 +64,7 @@ kubectl get ku
    * Find the IP address of the Minikube node and port of bootstrap service
 ```shell
 ip=$(kubectl get nodes --output=jsonpath='{range .items[*]}{.status.addresses[?(@.type=="InternalIP")].address}{"\n"}{end}')
-port=$(kubectl get service test-cluster-kafka-external-bootstrap -n kafka-project -o=jsonpath='{.spec.ports[0].nodePort}{"\n"}')
+port=$(kubectl get service test-cluster-kafka-external-bootstrap -n kafka-project-1 -o=jsonpath='{.spec.ports[0].nodePort}{"\n"}')
 echo $ip:$port > broker.txt
 cat broker.txt
 ```
