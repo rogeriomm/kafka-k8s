@@ -49,7 +49,7 @@ kubectl apply -f k8s/kafka-project.yaml
  
    * Wait
 ```shell
-kubectl wait kafka/test-cluster --for=condition=Ready --timeout=300s -n kafka-project
+kubectl wait kafka/test-cluster --for=condition=Ready --timeout=300s -n kafka-project-1
 ```
 
    * Show Kafka resources
