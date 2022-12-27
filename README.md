@@ -60,7 +60,12 @@ kubectl get ku
 ```
 
 
-# Send and receive messages
+# Send and receive messages & check DNS name resolution
+   * Change context to cluster2
+```shell
+labtools-k8s set-context cluster2
+```
+
    * Find the IP address of the Minikube node and port of bootstrap service
 ```shell
 ip=$(kubectl get nodes --output=jsonpath='{range .items[*]}{.status.addresses[?(@.type=="InternalIP")].address}{"\n"}{end}')
@@ -69,25 +74,33 @@ echo $ip:$port > broker.txt
 cat broker.txt
 ```
 
+   * Check DNS name resolution
+```shell
+kubectl get services -n kafka-project-1 test-cluster-kafka-bootstrap
+dnsip="test-cluster-kafka-external-bootstrap.kafka-project-1.svc.cluster1.local"
+dnsip=$(dig +short $dnsip)
+echo $dnsip
+```
+
    * Test bootstrap service TCP connectivity
 ```shell
 nc -v $ip $port
 ```
 
-   * Change context to cluster2
+   * Test bootstrap service TCP connectivity
 ```shell
-labtools-k8s set-context cluster2
+nc -v $dnsip 9094
 ```
 
-   * Producer. Cluster 2 send messages to Strimzi on cluster 1
+   * Producer. Cluster 2 send messages to Kafka on cluster 1
 ```shell
-kubectl -n zeppelin run kafka-producer -ti --image=quay.io/strimzi/kafka:0.31.0-kafka-3.2.1 --rm=true --restart=Never -- \
+kubectl -n zeppelin run kafka-producer -ti --image=quay.io/strimzi/kafka:0.31.1-kafka-3.2.3 --rm=true --restart=Never -- \
      bin/kafka-console-producer.sh --bootstrap-server $(cat broker.txt) --topic my-topic
 ```
 
-   * Consumer. Cluster 2 receive messages from Strimzi on cluster 1
+   * Consumer. Cluster 2 receive messages from Kafka on cluster 1
 ```shell
-kubectl -n zeppelin run kafka-consumer -ti --image=quay.io/strimzi/kafka:0.31.0-kafka-3.2.1 --rm=true --restart=Never -- \
+kubectl -n zeppelin run kafka-consumer -ti --image=quay.io/strimzi/kafka:0.31.1-kafka-3.2.3 --rm=true --restart=Never -- \
      bin/kafka-console-consumer.sh --bootstrap-server $(cat broker.txt) --topic my-topic --from-beginning
 ```
 
