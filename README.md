@@ -70,7 +70,8 @@ labtools-k8s set-context cluster1
 ```shell
 ip=$(kubectl get nodes --output=jsonpath='{range .items[*]}{.status.addresses[?(@.type=="InternalIP")].address}{"\n"}{end}')
 port=$(kubectl get service test-cluster-kafka-external-bootstrap -n kafka-project-1 -o=jsonpath='{.spec.ports[0].nodePort}{"\n"}')
-echo $ip:$port > broker.txt
+echo "Node $ip:$port"
+echo test-cluster-kafka-external-bootstrap.kafka-project-1.svc.cluster1.xpt:9094 > broker.txt
 cat broker.txt
 ```
 
@@ -89,7 +90,7 @@ nc -v $ip $port
 
    * Test bootstrap service TCP connectivity
 ```shell
-nc -v $dnsip 9094
+nc -v $dnsip 9094 
 ```
 
    * Change context to cluster2
@@ -101,7 +102,7 @@ labtools-k8s set-context cluster2
 ```shell
 kubectl -n zeppelin run kafka-producer -ti --image=quay.io/strimzi/kafka:0.31.1-kafka-3.2.3 --rm=true --restart=Never -- \
      bin/kafka-console-producer.sh --bootstrap-server $(cat broker.txt) --topic my-topic
-```
+```    
 
    * Consumer. Cluster 2 receive messages from Kafka on cluster 1
 ```shell
