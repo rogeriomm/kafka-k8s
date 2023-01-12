@@ -61,9 +61,9 @@ kubectl get ku
 
 
 # Send and receive messages & check DNS name resolution
-   * Change context to cluster2
+   * Change context to cluster1
 ```shell
-labtools-k8s set-context cluster2
+labtools-k8s set-context cluster1
 ```
 
    * Find the IP address of the Minikube node and port of bootstrap service
@@ -77,7 +77,7 @@ cat broker.txt
    * Check DNS name resolution
 ```shell
 kubectl get services -n kafka-project-1 test-cluster-kafka-bootstrap
-dnsip="test-cluster-kafka-external-bootstrap.kafka-project-1.svc.cluster1.local"
+dnsip="test-cluster-kafka-external-bootstrap.kafka-project-1.svc.cluster1.xpt"
 dnsip=$(dig +short $dnsip)
 echo $dnsip
 ```
@@ -90,6 +90,11 @@ nc -v $ip $port
    * Test bootstrap service TCP connectivity
 ```shell
 nc -v $dnsip 9094
+```
+
+   * Change context to cluster2
+```shell
+labtools-k8s set-context cluster2
 ```
 
    * Producer. Cluster 2 send messages to Kafka on cluster 1
