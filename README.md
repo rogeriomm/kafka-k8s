@@ -4,7 +4,7 @@
 # Provision the Apache Kafka cluster
    * Change context
 ```shell
-labtools-k8s set-context cluster
+labtools-k8s set-context cluster1
 ```
    * Create namespace "kafka", "kafka-project"
 ```shell
