@@ -134,3 +134,6 @@ kubectl delete $(kubectl get strimzi -o name)
    * https://github.com/strimzi/strimzi-kafka-operator/tree/0.27.0/examples: This folder contains different examples of Strimzi custom resources and demonstrates how they can be used.
       * https://github.com/strimzi/strimzi-kafka-operator/tree/0.27.0/examples/kafka
     
+
+# Links
+   * https://www.youtube.com/watch?v=4bKSPrENDQQ: Develop Apache Kafka applications with Strimzi and Minikube
