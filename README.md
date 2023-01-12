@@ -117,6 +117,18 @@ kubectl -n zeppelin run kafka-consumer -ti --image=quay.io/strimzi/kafka:0.31.1-
 kubectl delete -n zeppelin pod kafka-consumer kafka-producer
 ```
 
+   * Delete kafka project 1
+```shell
+labtools-k8s set-context cluster1
+kubectl delete -f k8s/kafka-project.yaml
+```
+
+  * Delete all Strimzi custom resources
+```shell
+labtools-k8s set-context cluster1
+kubectl delete $(kubectl get strimzi -o name)
+```
+
 # References
    * https://strimzi.io/quickstarts/
    * https://github.com/strimzi/strimzi-kafka-operator/tree/0.27.0/examples: This folder contains different examples of Strimzi custom resources and demonstrates how they can be used.
