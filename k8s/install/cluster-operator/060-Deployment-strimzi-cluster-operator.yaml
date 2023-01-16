@@ -107,6 +107,8 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
+            - name: KUBERNETES_SERVICE_DNS_DOMAIN
+              value: "cluster1.xpt"
           livenessProbe:
             httpGet:
               path: /healthy

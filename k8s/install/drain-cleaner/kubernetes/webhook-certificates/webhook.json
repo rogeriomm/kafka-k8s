@@ -15,6 +15,6 @@
         "strimzi-drain-cleaner",
         "strimzi-drain-cleaner.strimzi-drain-cleaner",
         "strimzi-drain-cleaner.strimzi-drain-cleaner.svc",
-        "strimzi-drain-cleaner.strimzi-drain-cleaner.svc.cluster.local"
+        "strimzi-drain-cleaner.strimzi-drain-cleaner.svc.cluster1.xpt"
     ]
 }
